@@ -21,6 +21,38 @@ model Post {
   title     String   @db.VarChar(255)
   content   String?
   published Boolean  @default(false)
-  authorName String?
+  authorId Int
+  author User @relation(fields: [authorId], references: [id])
 }
 
+model User{
+  id Int @id @default(autoincrement())
+  username String @unique
+  email String
+  role USER_ROLE
+  profile Profile? //! one to one
+  posts Post[] //! one to many
+
+  @@map("users")
+}
+
+enum USER_ROLE{
+  user
+  admin
+}
+
+model Profile {
+  id Int @id @default(autoincrement())
+  bio String
+  userId Int @unique
+  user User @relation(fields: [userId], references: [id]) //! one to one relation
+
+  @@map("profiles")
+}
+
+model Category {
+  id Int @id @default(autoincrement())
+  name String
+
+  @@map("categories")
+}
