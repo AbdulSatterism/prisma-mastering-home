@@ -44,11 +44,28 @@ const or_filtering= await prisma.post.findMany({
 const start_with = await prisma.user.findMany({
     where:{
         email:{
-            startsWith:"user1"
+            startsWith:"user1" //* also work same follow => contains, equals, endsWith
         }
     }
 })
-  console.log(start_with)
+
+
+//! deepth filtering 
+
+const deepthFilter = await prisma.user.findUnique({
+    where:{
+        id:1
+    },
+    include:{
+        posts:{
+            include:{
+                author:true
+            }
+        }
+    }
+})
+
+console.log(deepthFilter)
 
 }
 
