@@ -36,7 +36,19 @@ const or_filtering= await prisma.post.findMany({
         ]
     }
 })
-  console.log(or_filtering)
+
+//! not also work those pattern 
+
+//* here implement with fist letter or first word
+
+const start_with = await prisma.user.findMany({
+    where:{
+        email:{
+            startsWith:"user1"
+        }
+    }
+})
+  console.log(start_with)
 
 }
 
