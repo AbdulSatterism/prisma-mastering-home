@@ -72,3 +72,4 @@ category Category @relation(fields: [categoryId],references: [id])
 @@id([postId, categoryId])
 
 }
+
