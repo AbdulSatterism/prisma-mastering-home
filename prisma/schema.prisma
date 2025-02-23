@@ -23,15 +23,18 @@ model Post {
   published Boolean  @default(false)
   authorId Int
   author User @relation(fields: [authorId], references: [id])
+  categories PostCategory[]
 }
 
 model User{
   id Int @id @default(autoincrement())
   username String @unique
   email String
+  age Int @default(10)
   role USER_ROLE
   profile Profile? //! one to one
   posts Post[] //! one to many
+
 
   @@map("users")
 }
@@ -53,6 +56,19 @@ model Profile {
 model Category {
   id Int @id @default(autoincrement())
   name String
+  posts PostCategory[]
 
   @@map("categories")
+}
+
+
+model PostCategory{
+  categoryId Int
+category Category @relation(fields: [categoryId],references: [id])
+
+  postId Int
+  post Post @relation(fields: [postId], references: [id])
+
+@@id([postId, categoryId])
+
 }

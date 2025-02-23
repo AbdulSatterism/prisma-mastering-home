@@ -27,7 +27,7 @@ const findUnique= await prisma.post.findUniqueOrThrow({
     }
 })
 
-console.log(result)
+console.log(findUnique)
 
 
 
